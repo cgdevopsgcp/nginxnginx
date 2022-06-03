@@ -1,0 +1,20 @@
+version: '1.0'
+stages:
+  - clone
+  - build   
+  - bump-build-number
+steps:
+  clone:
+    title: Cloning main repository...
+    stage: clone
+    type: git-clone
+    repo: 'cgdevopsgcp/bump-build-number'
+    revision: master
+    git: github 
+  BuildImage:
+    title: Building Docker Image
+    type: build
+    image_name: codefreshplugins/bump-build-number 
+    working_directory: "${{clone}}"
+    dockerfile: "Dockerfile"
+    tag: develop
